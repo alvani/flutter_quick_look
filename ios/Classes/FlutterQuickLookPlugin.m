@@ -1,8 +1,10 @@
 #import "FlutterQuickLookPlugin.h"
-#import <flutter_quick_look/flutter_quick_look-Swift.h>
+#import "QuickLookView.h"
 
 @implementation FlutterQuickLookPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftFlutterQuickLookPlugin registerWithRegistrar:registrar];
+    QuickLookFactory* webviewFactory =
+        [[QuickLookFactory alloc] initWithMessenger:registrar.messenger];
+    [registrar registerViewFactory:webviewFactory withId:@"plugins.flutter.alva2.com/quicklook"];
 }
 @end
