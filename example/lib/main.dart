@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();    
-  }
+  }  
 
   writeCSV() async {
     if (defaultTargetPlatform  == TargetPlatform.iOS) {      
@@ -32,9 +32,10 @@ class _MyAppState extends State<MyApp> {
 
       String csv = const ListToCsvConverter().convert(data);
       String directory = (await getApplicationDocumentsDirectory()).path;
-      var file = await File('$directory/test.csv').writeAsString(csv);      
+      var file = await File('$directory/test.csv').writeAsString(csv);
+      await FlutterQuickLook2.openURL(file.path);
       setState(() {
-        path = file.path;
+        // path = file.path;
         writing = false;  
       });
     } else {
