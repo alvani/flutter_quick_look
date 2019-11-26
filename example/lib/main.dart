@@ -14,8 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool writing = false;
-  String path;
+  bool writing = false;  
 
   @override
   void initState() {
@@ -33,9 +32,8 @@ class _MyAppState extends State<MyApp> {
       String csv = const ListToCsvConverter().convert(data);
       String directory = (await getApplicationDocumentsDirectory()).path;
       var file = await File('$directory/test.csv').writeAsString(csv);
-      await FlutterQuickLook2.openURL(file.path);
-      setState(() {
-        // path = file.path;
+      await FlutterQuickLook.openURL(file.path);
+      setState(() {        
         writing = false;  
       });
     } else {
@@ -46,16 +44,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) { 
-    print(path);
+  Widget build(BuildContext context) {     
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child:            
-            (path == null) ? Text('Please press Open CSV button') : FlutterQuickLook(path),          
+          child: Text('Please press Open CSV button'),            
         ),
         persistentFooterButtons: <Widget>[
           writing ? Text('Writing') : RaisedButton(            
