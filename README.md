@@ -1,14 +1,39 @@
+
 # flutter_quick_look
 
-A new flutter plugin project.
+iOS Quick Look implementation on Flutter.
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+You need to setup your root view controller as UINavigationController.
+Example  :
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+    // AppDelegate.swift
+    
+    import UIKit
+    import Flutter
+    
+    @UIApplicationMain
+    @objc class AppDelegate: FlutterAppDelegate {
+      var navigationController: UINavigationController?;    
+        
+      override func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+      ) -> Bool {
+        let flutterViewController: FlutterViewController = window?.rootViewController as! FlutterViewController
+        GeneratedPluginRegistrant.register(with: self)
+        self.navigationController = UINavigationController(rootViewController: flutterViewController);
+        self.navigationController?.setNavigationBarHidden(true, animated: false);
+            
+        self.window = UIWindow(frame: UIScreen.main.bounds);
+        self.window.rootViewController = self.navigationController;
+        self.window.makeKeyAndVisible();
+    
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+      }
+    }
+
+Import `package:flutter_quick_look/flutter_quick_look.dart` use `FlutterQuickLook.openURL(filePath);` to launch Quick Look
+
+You will find the complete example in the example directory.
